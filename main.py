@@ -119,6 +119,13 @@ async def process_broadcast(message: types.Message, state: FSMContext):
         await message.answer(f"📢 Xabar {count} ta foydalanuvchiga yuborildi.", reply_markup=get_admin_keyboard())
         await state.clear()
 
+# --- Video kontentlari (Bu yerga video file_id yoki URL manzillarini yozing) ---
+VIDEOS = {
+    "top_videos": "https://raw.githubusercontent.com/aiogram/aiogram/dev/examples/file_id.txt", # Misol uchun, bu yerga haqiqiy file_id qo'ying
+    "cartoons": "https://raw.githubusercontent.com/aiogram/aiogram/dev/examples/file_id.txt",
+    "extreme_videos": "https://raw.githubusercontent.com/aiogram/aiogram/dev/examples/file_id.txt"
+}
+
 # --- Mavjud Handlers ---
 
 @dp.callback_query(lambda c: c.data == "back_to_main")
@@ -137,7 +144,21 @@ async def handle_content_request(callback: types.CallbackQuery):
 
     if user_data[user_id]["is_vip"] or user_data[user_id]["daily_views"] < 3:
         user_data[user_id]["daily_views"] += 1
-        await callback.message.answer(f"Вот ваше видео по запросу '{callback.data}'.\nПросмотров сегодня: {user_data[user_id]['daily_views']}/3")
+        video_content = VIDEOS.get(callback.data)
+        
+        try:
+            if video_content and video_content.startswith("http"):
+                await callback.message.answer_video(
+                    video=video_content,
+                    caption=f"Вот ваше видео по запросу '{callback.data}'.\nПросмотров сегодня: {user_data[user_id]['daily_views']}/3"
+                )
+            else:
+                await callback.message.answer(
+                    f"⚠️ Видео для категории '{callback.data}' еще не добавлено.\nПросмотров сегодня: {user_data[user_id]['daily_views']}/3"
+                )
+        except Exception as e:
+            logging.error(f"Video yuborishda xato: {e}")
+            await callback.message.answer("К сожалению, произошла ошибка при отправке видео.")
     else:
         await callback.message.answer("Вы исчерпали лимит просмотров на сегодня (3/3). Оформите VIP подписку для безлимитного доступа!")
     await callback.answer()
