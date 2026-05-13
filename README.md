@@ -1,16 +1,20 @@
-# Telegram Bot Template (External Video Support)
+# Telegram Bot (Admin Video Management)
 
-Ushbu bot Telegram Stars to'lov tizimi, kunlik limit va tashqi URL orqali video yuborish funksiyasiga ega.
+Ushbu bot Telegram Stars to'lov tizimi, kunlik limit va admin tomonidan videolarni boshqarish funksiyasiga ega.
 
-## Yangilanishlar:
-1. `answer_video` funksiyasi qo'shildi, endi bot haqiqiy videolarni yuboradi.
-2. `VIDEOS` lug'ati orqali videolarni tashqi URL manzillardan (masalan, mp4 formatidagi to'g'ridan-to'g'ri havolalar) yuborish imkoniyati yaratildi.
+## Yangi funksiyalar:
+1.  **Admin Panel:** `/admin` buyrug'i orqali kiriladi.
+2.  **Video qo'shish:** Endi admin botning o'zidan turib videolarni qo'shishi yoki yangilashi mumkin.
+3.  **Ma'lumotlarni saqlash:** Foydalanuvchilar va videolar `bot_data.json` faylida saqlanadi (bot o'chib yonsa ham ma'lumotlar yo'qolmaydi).
+
+## Videolarni qanday qo'shish kerak:
+1.  Botga `/admin` deb yozing.
+2.  "Video qo'shish" tugmasini bosing.
+3.  Kategoriyani tanlang (masalan, "Топ Видео").
+4.  Botga videoni yuboring yoki video havolasini (.mp4) yozing.
+5.  Tayyor! Endi foydalanuvchilar o'sha videoni ko'ra olishadi.
 
 ## Sozlash:
-1. `main.py` ichidagi `VIDEOS` lug'atiga o'zingiz xohlagan videolarning to'g'ridan-to'g'ri havolalarini (.mp4) qo'ying.
-2. `BOT_TOKEN` va `ADMIN_ID` muhit o'zgaruvchilarini sozlang.
-3. Kutubxonalarni o'rnating: `pip install -r requirements.txt`
-4. Botni ishga tushiring: `python main.py`
-
-## Muhim eslatma:
-Telegram orqali video yuborishda, agar URL manzil to'g'ridan-to'g'ri video faylga (.mp4) yo'naltirilgan bo'lsa, bot uni yuklab yubora oladi. Ba'zi kattaroq hajmli yoki maxsus himoyalangan saytlardagi videolarni avval Telegram'ga yuklab, keyin `file_id` orqali ishlatish tavsiya etiladi.
+1.  `BOT_TOKEN` va `ADMIN_ID` muhit o'zgaruvchilarini sozlang.
+2.  Kutubxonalarni o'rnating: `pip install -r requirements.txt`
+3.  Botni ishga tushiring: `python main.py`
